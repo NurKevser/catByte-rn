@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 
 const Home = ({navigation}) => {
+  const [isLoading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
 
   async function getUser() {
@@ -21,6 +22,8 @@ const Home = ({navigation}) => {
       setUserList(response.data.users);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -55,15 +58,21 @@ const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={userList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        numColumns={2}
-      />
-      <TouchableOpacity style={styles.button}>
-        <Text>Add</Text>
-      </TouchableOpacity>
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View>
+          <FlatList
+            data={userList}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            numColumns={2}
+          />
+          <TouchableOpacity style={styles.button}>
+            <Text>Add</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
