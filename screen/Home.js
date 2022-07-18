@@ -37,22 +37,17 @@ const Home = ({navigation}) => {
       }}>
       <View
         style={{
-          width: '45%',
           alignItems: 'center',
-          padding: 10,
-          backgroundColor: '#ccc',
-          margin: 10,
+          margin: 8,
         }}>
         <Image style={styles.image} source={{uri: item.image}} />
 
-        <View
-          style={{
-            width: '90%',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
-          <Text>{item.firstName}</Text>
-          <Text>{item.age}</Text>
+        <View style={styles.card}>
+          <Text style={styles.text}>{item.firstName}</Text>
+          <Text style={styles.text}>{item.age}</Text>
+          <TouchableOpacity>
+            <Text style={styles.closeButton}>X</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>
@@ -66,6 +61,9 @@ const Home = ({navigation}) => {
         keyExtractor={item => item.id}
         numColumns={2}
       />
+      <TouchableOpacity style={styles.button}>
+        <Text>Add</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -74,11 +72,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
-    width: 66,
-    height: 58,
+  card: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    zIndex: 3,
+    backgroundColor: 'rgba(0,0,0,.4)',
   },
-  item: {},
+  image: {
+    width: 200,
+    height: 200,
+    position: 'relative',
+    zIndex: 0,
+  },
+  text: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    top: '50%',
+  },
+  closeButton: {
+    top: 3,
+    left: 40,
+    fontSize: 22,
+    color: 'white',
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    alignItems: 'center',
+    alignSelf: 'center',
+    padding: 20,
+    borderRadius: 20,
+    margin: 8,
+  },
 });
 
 export default Home;
